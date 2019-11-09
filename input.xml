@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<records>
+  <record>
+    <name>joe</name>
+    <identifier>1234087612346780</identifier>
+    <maybe>yes</maybe>
+  </record>
+  <record>
+    <name>julie</name>
+    <identifier>5374859265948766</identifier>
+    <maybe/>
+  </record>
+</records>
