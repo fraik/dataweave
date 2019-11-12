@@ -1,7 +1,8 @@
 # convert xml to csv (and vice-versa) using dataweave
 
 ## Prerequisites
-To run the following you need the `dw` commandline client, you can check it out (or download binaries) here: https://github.com/mulesoft-labs/data-weave-native
+To run the following you need the `dw` commandline client, you can check it out
+(or download binaries) here: https://github.com/mulesoft-labs/data-weave-native
 
 ## Getting Started
 
@@ -37,14 +38,43 @@ You should see something like this:
 
 ```
 
+### Explanation
+So how do we go from 1 csv-file containing a header line and multiple rows
+towards a single `<records>` XML-element which contains `<record>` elements
+with the columns as elements.
+
+First we create a root element `{}`, which contains the `<records>` element
+```code
+%dw 2.0
+
+output application/xml
+encoding="UTF-8",
+indent=true,
+writeNilOnNull=true,
+writeDeclaration=true
+---
+
+{
+    "records": (
+        (
+            payload map (obj) ->
+            "record": obj
+        ) reduce ($$ ++ $)
+    )
+}
+```
+
 ### XML -> CSV
-Converting from XML is more or less the same (again `payload` is mandatory), the result should look similar to the csv content shown earlier
+Converting from XML is more or less the same (again `payload` is mandatory),
+the result should look similar to the csv content shown earlier
+
 ```bash
 dw -f xml2csv.dwl -i payload input.xml
 ```
 
 ### Settings
-If you take a look in the scripts, you can find some writer settings for adjusting the output.
+If you take a look in the scripts, you can find some writer settings for
+adjusting the output.
 
 ### Sources
 - https://docs.mulesoft.com/mule-runtime/4.2/dataweave
