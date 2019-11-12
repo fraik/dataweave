@@ -4,14 +4,14 @@ output application/xml
 encoding="UTF-8",
 indent=true,
 writeNilOnNull=true,
-writeDeclaration=true
+writeDeclaration=false
 ---
 
 {
-    records: (
+    "records": (
         (
             payload map (obj) ->
-            record: obj
+            "record": obj
         ) reduce ($$ ++ $)
     )
 }
